@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="android.example.videoreview.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_addReview"
+            app:destination="@id/addReview" />
+    </fragment>
+    <fragment
+        android:id="@+id/sendFragment"
+        android:name="android.example.videoreview.SendFragment"
+        android:label="fragment_send"
+        tools:layout="@layout/fragment_send" />
+    <fragment
+        android:id="@+id/addReview"
+        android:name="android.example.videoreview.addReview"
+        android:label="fragment_add_review"
+        tools:layout="@layout/fragment_add_review" >
+        <action
+            android:id="@+id/action_addReview_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+</navigation>
