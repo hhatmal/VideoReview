@@ -1,7 +1,7 @@
 package android.example.videoreview
 
-import android.content.Context
 import android.example.videoreview.databinding.FragmentHomeBinding
+import android.example.videoreview.db.Review
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,7 +24,17 @@ class HomeFragment : Fragment() {
 
         my_recycler_view.layoutManager = LinearLayoutManager(this.context)
 
-        val reviewList = listOf(Review("review 1", "1"), Review("review 2", "2"))
+        val reviewList = listOf(
+            Review(
+                1,
+                "review 1",
+                "1",
+                "aa"
+            ), Review(2,
+                "review 2",
+                "2",
+            "test desc")
+        )
         my_recycler_view.adapter = MyRecyclerViewAdapter(reviewList)
     }
 

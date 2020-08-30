@@ -1,5 +1,6 @@
 package android.example.videoreview
 
+import android.example.videoreview.db.Review
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

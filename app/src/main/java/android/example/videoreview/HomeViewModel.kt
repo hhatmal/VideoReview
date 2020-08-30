@@ -1,7 +1,7 @@
 package android.example.videoreview
 
+import android.example.videoreview.db.Review
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class HomeViewModel : ViewModel() {
