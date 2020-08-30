@@ -7,9 +7,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "review_data_table")
 data class Review(
 
-    @PrimaryKey(autoGenerate = true)
-    val id:Int,
-
     @ColumnInfo(name = "title")
     val title:String,
 
@@ -18,4 +15,7 @@ data class Review(
 
     @ColumnInfo(name = "description")
     val description:String
-)
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id:Int = 0
+}

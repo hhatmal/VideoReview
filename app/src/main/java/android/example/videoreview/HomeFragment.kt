@@ -26,11 +26,10 @@ class HomeFragment : Fragment() {
 
         val reviewList = listOf(
             Review(
-                1,
                 "review 1",
                 "1",
                 "aa"
-            ), Review(2,
+            ), Review(
                 "review 2",
                 "2",
             "test desc")
