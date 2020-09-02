@@ -1,12 +1,16 @@
 package android.example.videoreview
 
 import android.example.videoreview.db.Review
+import android.example.videoreview.db.ReviewRepository
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
-    private lateinit var reviewList : LiveData<List<Review>>
-    val reviewListData : LiveData<List<Review>>
-    get() = reviewList
+class HomeViewModel(private val repository: ReviewRepository) : ViewModel() {
 
+    fun getReviews() : LiveData<List<Review>> {
+        return repository.reviews
+    }
 }
