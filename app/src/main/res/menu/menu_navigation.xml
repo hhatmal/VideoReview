@@ -2,8 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home_black_24dp"
         android:title="Home"/>
     <item
         android:id="@+id/sendFragment"
+        android:icon="@drawable/ic_send_black_24dp"
         android:title="Send"/>
 </menu>
