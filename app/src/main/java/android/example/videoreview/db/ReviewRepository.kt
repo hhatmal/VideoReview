@@ -8,4 +8,8 @@ class ReviewRepository(private val dao : ReviewDAO) {
     suspend fun insert(review : Review) {
         dao.insertReview(review)
     }
+
+    suspend fun delete(review : Review) {
+        dao.deleteReview(review)
+    }
 }

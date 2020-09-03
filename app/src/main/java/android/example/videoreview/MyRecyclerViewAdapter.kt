@@ -29,11 +29,15 @@ class MyRecyclerViewAdapter(var reviewList : List<Review>) : RecyclerView.Adapte
         reviewList = newData
         notifyDataSetChanged()
     }
+
+    fun getReviewAt(position: Int) : Review {
+        return reviewList.get(position)
+    }
 }
 
 class MyViewHolder(val view : View) : RecyclerView.ViewHolder(view) {
     fun bind(review: Review) {
         view.name_text_view.text = review.title
-        view.description_text_view.text = review.description
+        //view.description_text_view.text = review.description
     }
 }

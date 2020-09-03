@@ -19,6 +19,8 @@ class AddReviewViewModel(private val repository: ReviewRepository) : ViewModel()
     @Bindable
     var description = MutableLiveData<String>()
 
+    var validInput = MutableLiveData<Boolean?>()
+
     val titleData : LiveData<String>
         get() = title
 
@@ -29,13 +31,30 @@ class AddReviewViewModel(private val repository: ReviewRepository) : ViewModel()
         get() = description
 
     fun insert() {
-        Log.w("vince", "message" + title.value)
-        viewModelScope.launch {
-            repository.insert(Review(
-                title.value!!,
-                rating.value!!,
-                description.value!!))
+        if(isValid()) {
+            viewModelScope.launch {
+                repository.insert(
+                    Review(
+                        title.value!!,
+                        rating.value!!,
+                        description.value!!
+                    )
+                )
+            }
         }
+    }
+
+    // check if empty fields -> send toast
+    private fun isValid() : Boolean {
+        if((title.value.isNullOrEmpty() || description.value.isNullOrEmpty()
+                || rating.value.isNullOrEmpty())) {
+
+            validInput.value = false
+            return false
+        }
+
+        validInput.value = true
+        return true
     }
 
     override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {

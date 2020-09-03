@@ -13,4 +13,10 @@ class HomeViewModel(private val repository: ReviewRepository) : ViewModel() {
     fun getReviews() : LiveData<List<Review>> {
         return repository.reviews
     }
+
+    fun deleteReview(review : Review) {
+        viewModelScope.launch {
+            repository.delete(review)
+        }
+    }
 }
