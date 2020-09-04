@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
                 target: RecyclerView.ViewHolder
             ): Boolean {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+           }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 viewModel.deleteReview((my_recycler_view.adapter as MyRecyclerViewAdapter).getReviewAt(viewHolder.adapterPosition))

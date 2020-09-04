@@ -21,15 +21,6 @@ class AddReviewViewModel(private val repository: ReviewRepository) : ViewModel()
 
     var validInput = MutableLiveData<Boolean?>()
 
-    val titleData : LiveData<String>
-        get() = title
-
-    val ratingData : LiveData<String>
-        get() = rating
-
-    val descriptionData : LiveData<String>
-        get() = description
-
     fun insert() {
         if(isValid()) {
             viewModelScope.launch {
