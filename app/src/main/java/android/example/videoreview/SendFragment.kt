@@ -7,6 +7,7 @@ import android.example.videoreview.db.ReviewDatabase
 import android.example.videoreview.db.ReviewRepository
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,8 +41,15 @@ class SendFragment : Fragment() {
         val repository = ReviewRepository(dao)
         val factory = SendViewModelFactory(repository)
 
-
         viewModel = ViewModelProvider(this, factory).get(SendViewModel::class.java)
+
+        viewModel.reviews.observe(viewLifecycleOwner, Observer {
+            viewModel.changeStatus()
+        })
+
+        viewModel.toastMessage.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(context, viewModel.toastMessage.value, Toast.LENGTH_SHORT).show()
+        })
 
         binding.viewModel = viewModel
 
