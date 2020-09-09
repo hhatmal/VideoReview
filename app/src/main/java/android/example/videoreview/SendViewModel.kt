@@ -3,6 +3,7 @@ package android.example.videoreview
 import android.example.videoreview.db.Review
 import android.example.videoreview.db.ReviewRepository
 import android.text.TextUtils
+import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.LiveData
@@ -17,23 +18,29 @@ import javax.mail.internet.MimeMessage
 
 class SendViewModel(private val repository: ReviewRepository) : ViewModel(), Observable {
     @Bindable
-    var email = MutableLiveData<String>()
-    private var appExecutors: AppExecutors = AppExecutors()
-    var reviews: LiveData<List<Review>> = repository.reviews
+    private val email = MutableLiveData<String>()
+    @Bindable
+    private val toastMessage = MutableLiveData<String>()
+    private val appExecutors: AppExecutors = AppExecutors()
+    private val reviews = repository.reviews
     private var isReady = false
 
-    @Bindable
-    var toastMessage = MutableLiveData<String>()
+    val emailValue: MutableLiveData<String> get() = email
+    val toastMessageValue: MutableLiveData<String> get() = toastMessage
+    val appExecutorsData: AppExecutors get() = appExecutors
+    val reviewsData: LiveData<List<Review>> get() = reviews
+    val isReadyData: Boolean get() = isReady
+
+    init {
+        email.value = ""
+    }
 
     fun changeStatus() {
         isReady = true
     }
 
     fun sendEmail() : Boolean {
-        if(isReady && (email.value.isNullOrEmpty() || !email.value!!.isEmailValid())) {
-            toastMessage.value = "Invalid Email!"
-            return false
-        } else if(isReady) {
+        if(isValidEmail(email.value!!) && isReady) {
             appExecutors.diskIO().execute {
                 val props = System.getProperties()
                 props.put("mail.smtp.host", "smtp.gmail.com")
@@ -77,11 +84,13 @@ class SendViewModel(private val repository: ReviewRepository) : ViewModel(), Obs
 
             toastMessage.value = "Email has been sent!"
             return true
+        } else {
+            toastMessage.value = "Unable to send email!"
         }
         return false
     }
 
-    fun reviewsToString() : String {
+    private fun reviewsToString() : String {
         var reviewString  = "List Of Reviews: \n"
         for(review in reviews.value!!) {
             reviewString = reviewString.plus("Title: ").plus(review.title).plus("\n")
@@ -100,7 +109,7 @@ class SendViewModel(private val repository: ReviewRepository) : ViewModel(), Obs
 
     }
 
-    private fun String.isEmailValid(): Boolean {
-        return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+    private fun isValidEmail(emailData : String) : Boolean {
+        return !TextUtils.isEmpty(emailData) && android.util.Patterns.EMAIL_ADDRESS.matcher(emailData).matches();
     }
 }

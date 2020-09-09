@@ -43,12 +43,12 @@ class SendFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, factory).get(SendViewModel::class.java)
 
-        viewModel.reviews.observe(viewLifecycleOwner, Observer {
+        viewModel.reviewsData.observe(viewLifecycleOwner, Observer {
             viewModel.changeStatus()
         })
 
-        viewModel.toastMessage.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(context, viewModel.toastMessage.value, Toast.LENGTH_SHORT).show()
+        viewModel.toastMessageValue.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(context, viewModel.toastMessageValue.value, Toast.LENGTH_SHORT).show()
         })
 
         binding.viewModel = viewModel

@@ -37,7 +37,7 @@ class AddReviewFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(AddReviewViewModel::class.java)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.validInput.observe(viewLifecycleOwner, Observer { validInput ->
+        viewModel.validInputValue.observe(viewLifecycleOwner, Observer { validInput ->
             validInput?.let {
                 if(!validInput)
                     Toast.makeText(activity, "Invalid input!", Toast.LENGTH_SHORT).show()
@@ -46,7 +46,7 @@ class AddReviewFragment : Fragment() {
                     Navigation.findNavController(binding.root).navigate(R.id.action_addReview_to_homeFragment)
                 }
 
-                viewModel.validInput.value = null
+                viewModel.validInputValue.value = null
             }
         })
         binding.viewModel = viewModel

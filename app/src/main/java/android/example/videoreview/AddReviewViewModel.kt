@@ -11,15 +11,17 @@ import kotlinx.coroutines.launch
 
 class AddReviewViewModel(private val repository: ReviewRepository) : ViewModel(), Observable {
     @Bindable
-    var title = MutableLiveData<String>()
-
+    private val title = MutableLiveData<String>()
     @Bindable
-    var rating = MutableLiveData<String>()
-
+    private val rating = MutableLiveData<String>()
     @Bindable
-    var description = MutableLiveData<String>()
+    private val description = MutableLiveData<String>()
+    private val validInput = MutableLiveData<Boolean?>()
 
-    var validInput = MutableLiveData<Boolean?>()
+    val titleValue: MutableLiveData<String> get() = title
+    val ratingValue: MutableLiveData<String> get() = rating
+    val descriptionValue: MutableLiveData<String> get() = description
+    val validInputValue: MutableLiveData<Boolean?> get() = validInput
 
     fun insert() {
         if(isValid()) {
